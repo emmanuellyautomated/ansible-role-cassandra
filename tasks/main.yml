@@ -1,0 +1,44 @@
+---
+
+- name: install jdk
+  apt:
+    name: default-jdk
+    state: latest
+    update_cache: yes
+  become: yes
+  become_user: root
+  when: run_mode == "install"
+
+- name: download and extract cassandra
+  unarchive:
+    src: "{{ cassandra_url }}"
+    dest: "/opt/"
+    mode: 0744
+    copy: no
+  become: yes
+  become_user: root
+  when: run_mode == "install"
+
+- name: Upload templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"   
+    owner: "{{ remote_user }}" 
+  with_items:
+    - {src: "cassandra-env.sh.j2", dest: "{{cassandra_home}}/conf/cassandra-env.sh"}
+    - {src: "cassandra.yaml.j2", dest: "{{cassandra_home}}/conf/cassandra.yaml"}
+  become: yes
+  become_user: root
+  when: run_mode == "install"
+
+- name: Start Handlers
+  command: /bin/true
+  notify: "start"
+  when: (run_mode == "install" or run_mode == "start")
+
+- name: stop service
+  command: /bin/true
+  notify: "stop"
+  when: run_mode == "stop"
+
+

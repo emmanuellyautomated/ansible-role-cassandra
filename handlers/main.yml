@@ -1,0 +1,13 @@
+--- 
+
+- name: Start cassandra service
+  command: "nohup {{ cassandra_home }}/bin/cassandra > {{ cassandra_home }}/cassandra.log"
+  become: yes
+  become_user: root
+  listen: "start"
+
+- name: Stop cassandra service
+  command: "{{ cassandra_home }}/bin/stop-server"
+  become: yes
+  become_user: root
+  listen: "stop"

@@ -1,0 +1,22 @@
+---
+
+# --- JVM settings
+new_jvm_heap_size: 800M
+max_jvm_heap_size: 4G
+# ---- Cassandra Settings
+cluster_name: 'Dev Cluster'
+# comma seperated seeds list
+seeds: 127.0.0.1
+listen_address: 127.0.0.1
+rpc_address: 127.0.0.1
+broadcast_rpc_address: 127.0.0.1 
+endpoint_snitch: SimpleSnitch
+# ---- Cassandra path and other location settings
+cassandra_version: dsc-cassandra-3.0.9
+cassandra_url: http://downloads.datastax.com/community/{{ cassandra_version }}-bin.tar.gz
+remote_user: vagrant
+cassandra_path: /opt 
+cassandra_home: "{{cassandra_path}}/{{ cassandra_version }}"
+run_mode: start
+
+
