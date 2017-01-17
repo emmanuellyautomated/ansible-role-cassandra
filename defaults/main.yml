@@ -17,6 +17,6 @@ cassandra_url: http://downloads.datastax.com/community/{{ cassandra_version }}-b
 remote_user: vagrant
 cassandra_path: /opt 
 cassandra_home: "{{cassandra_path}}/{{ cassandra_version }}"
-run_mode: start
+run_mode: install
 
 
